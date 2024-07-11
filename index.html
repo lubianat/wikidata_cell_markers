@@ -92,10 +92,10 @@
             ?st ps:P8872 ?gene .
             ?gene rdfs:label ?geneLabel .
             FILTER(LANG(?geneLabel) = "en") .
-        `;
-        const quotationPart = `
             ?st prov:wasDerivedFrom ?provenance .
             ?provenance pr:P248 ?source .
+        `;
+        const quotationPart = `
             ?provenance pr:P1683 ?quotation .
             ?source wdt:P356 ?doi . 
             BIND(CONCAT("https://doi.org/", ?doi) as ?doi_url)
@@ -118,7 +118,7 @@
                   <tr>
                     <th>Cell</th>
                     <th>Gene</th>
-                    <th>Quotation</th>
+                    <th>Source</th>
                   </tr>
                 </thead>
                 <tbody>`;
@@ -141,14 +141,15 @@
                   </a>
                 </td>
                 <td>
-                  ${item.quotation ? `
                     <a class="silentLink" href="${item.source.value}" target="_blank">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Wikidata_Favicon_color.svg/768px-Wikidata_Favicon_color.svg.png" class="favicon" alt="Wikidata">
                     </a>
-                    ${item.quotation.value}
+                  ${item.quotation ? `
                     <a class="silentLink" href="${item.doi_url.value}" target="_blank">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/DOI_logo.svg" class="doi-icon" alt="DOI">
                     </a>
+                   ${item.quotation.value}
+
                   ` : 'No quotation available'}
                 </td>
               </tr>`;
